@@ -2,15 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const dotenv = require('dotenv');
+dotenv.config()
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB setup (Assuming you have MongoDB installed locally)
-mongoose.connect('mongodb+srv://sankalpdwiv49:minor123@cluster0.lrprjjv.mongodb.net/route_min_track?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODBURL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Define MongoDB Schema and Model
 const routeSchema = new mongoose.Schema({
@@ -48,5 +49,5 @@ app.post('/planRoute', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+  console.log(`Server listening at ${BASE_URL}`);
 });
